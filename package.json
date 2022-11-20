@@ -1,6 +1,6 @@
 {
   "name": "preact-icu",
-  "version": "0.0.0-0",
+  "version": "1.0.0",
   "description": "tiny i18n provider with icu syntax for preact",
   "keywords": [
     "globalization",
