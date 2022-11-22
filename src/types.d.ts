@@ -1,4 +1,5 @@
 export { AnyComponent, VNode } from 'preact'
+import { I18n } from './i18n.js'
 
 export interface I18nOptions {
   /** selected language */
@@ -27,7 +28,7 @@ export interface I18nOptions {
 
 export interface IntlProviderContext {
   /** access to i18next instance */
-  i18n: object
+  i18n?: I18n
   /** translate function */
   t: Function
   /** selected language */
@@ -53,7 +54,7 @@ export interface IntlNumberProps extends Intl.NumberFormatOptions {
   // currency?: string
   // currencyDisplay?: string
   // currencySign?: string
-  // style?: 'currenty'|'unit'|'decimal'|'percent'
+  // style?: 'currently'|'unit'|'decimal'|'percent'
   // unit?: string
   // unitDisplay?: 'long'|'short'|'narrow'
   // notation?: string

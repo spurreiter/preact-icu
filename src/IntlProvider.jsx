@@ -11,7 +11,7 @@ import { createInstance, I18n } from './i18n'
 const Context = createContext({
   t: () => '',
   lng: '',
-  i18n: () => {},
+  i18n: undefined,
   changeLanguage: async () => {},
   getLanguages: () => []
 })

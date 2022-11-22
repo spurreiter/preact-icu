@@ -2,6 +2,7 @@ import { format } from 'intl-messageformat-tiny'
 import { cookieParse, cookieSerialize } from './cookie.js'
 
 /** @typedef {import('./types').I18nOptions} I18nOptions */
+/** @typedef {{ok: boolean, status: number, lng: string, ns: string}} LoadResponse */
 
 const isBrowser = globalThis?.navigator?.language && globalThis?.document
 
@@ -227,24 +228,25 @@ export class I18n {
   /**
    * @param {string[]} lngs
    * @param {string[]} [ns]
-   * @return {Promise<void>}
+   * @return {Promise<(LoadResponse|undefined|void)[]>}
    */
   async loadLanguages (lngs = [], ns = []) {
     const _lngs = uniq(lngs)
     const _ns = uniq([...ns, this.defaultNs])
     if (!_lngs.length || !_ns.length) {
       log.error("can't load without languages or namespaces")
-      return
+      return []
     }
     const loaders = []
     for (const lng of _lngs) {
       for (const ns of _ns) {
         if (!this.resources[lng]?.[ns]) {
-          loaders.push(this._load({ lng, ns }))
+          loaders.push(this._load({ lng, ns }).catch(err => log.error(err)))
         }
       }
     }
-    await Promise.all(loaders).catch(err => log.error(err))
+    const result = await Promise.all(loaders)
+    return result
   }
 
   /**
@@ -253,17 +255,19 @@ export class I18n {
    *  lng: string
    *  ns: string
    * }} param0
-   * @return {Promise<void>}
+   * @return {Promise<undefined|LoadResponse>}
    */
   async _load ({ lng, ns }) {
     const { version } = this.options
     const url = format(this.options.backendPath, { lng, ns, version })
-    const res = await fetch(url)
+    const res = await fetch(url).catch(err => log.error(err))
     this.resources[lng] = this.resources[lng] || {}
-    if (res.ok) {
+    const { ok = false, status = -1 } = res || {}
+    if (ok && res) {
       const labels = await res.json()
       this.resources[lng][ns] = labels
     }
+    return { ok, status, lng, ns }
   }
 }
 

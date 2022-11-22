@@ -67,18 +67,24 @@ export class I18n {
     /**
      * @param {string[]} lngs
      * @param {string[]} [ns]
-     * @return {Promise<void>}
+     * @return {Promise<(LoadResponse|undefined|void)[]>}
      */
-    loadLanguages(lngs?: string[], ns?: string[] | undefined): Promise<void>;
+    loadLanguages(lngs?: string[], ns?: string[] | undefined): Promise<(LoadResponse | undefined | void)[]>;
     /**
      * @private
      * @param {{
      *  lng: string
      *  ns: string
      * }} param0
-     * @return {Promise<void>}
+     * @return {Promise<undefined|LoadResponse>}
      */
     private _load;
 }
 export function createInstance(options: any): I18n;
 export type I18nOptions = import('./types').I18nOptions;
+export type LoadResponse = {
+    ok: boolean;
+    status: number;
+    lng: string;
+    ns: string;
+};
