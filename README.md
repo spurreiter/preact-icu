@@ -129,6 +129,7 @@ const Persons = ({ value = 0 }) => <Message
 | -------- | ------ | ------------------------------ |
 | label    | string | the translation label          |
 | lng?     | string | overrides the default language |
+| ns?      | string | uses a different namespace (ensure to have the translations loaded before first use)     |
 | ...      | string | the placeholder value(s)       |
 
 ## Number
@@ -152,7 +153,7 @@ const MyCurrency = () => <Number value={123456.012} currency="EUR" style="curren
 | -------- | ------ | ------------------------------------- |
 | value    | number | the number to translate               |
 | lng?     | string | overrides the default language        |
-| ...      | any    | see [NumberFormat][] for all options. |
+| ...      | any    | see [Intl.NumberFormat][] for all options. |
 
 
 ## DateTime
@@ -179,7 +180,7 @@ const DateTimeLong = () => <DateTime value={new Date()} weekday='long' year='num
 | date?    | boolean | if `true` show only date                                 |
 | time?    | boolean | if `true` show only time                                 |
 | hour12?  | boolean | if `true` show time in in 12 hour format with `am`, `pm` |
-| ...      | any     | see [DateTimeFormat][] for all options.                  |
+| ...      | any     | see [Intl.DateTimeFormat][] for all options.                  |
 
 ## RelativeTime
 
@@ -200,7 +201,7 @@ const MyRelativeTime2 = () => <RelativeTime value="1" unit="day" />
 | -------- | ------------ | --------------------------------------- |
 | value    | Date\|number | the number to translate                 |
 | lng?     | string       | overrides the default language          |
-| ...      | any          | see [DateTimeFormat][] for all options. |
+| ...      | any          | see [Intl.DateTimeFormat][] for all options. |
 
 # example and storybook
 
