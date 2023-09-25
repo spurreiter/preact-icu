@@ -26,5 +26,3 @@ dist-ssr
 coverage
 *.tgz
 pnpm-lock.yaml
-
-my.md
